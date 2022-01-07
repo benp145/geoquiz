@@ -1,12 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import { App } from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { QuizProvider } from './context/QuizProvider'
+import { DataProvider } from './context/DataProvider';
+import { AuthProvider } from './context/AuthProvider';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <AuthProvider>
+        <DataProvider>
+          <QuizProvider>
+            <App />
+          </QuizProvider>
+        </DataProvider>
+      </AuthProvider>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

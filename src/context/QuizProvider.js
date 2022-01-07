@@ -37,40 +37,7 @@ export const QuizProvider = (props) => {
     }
 
 
-    // API functionality
-    const [queryState, setQueryState] = useState([]);
-    const [keyState, setKeyState] = useState([]);
-
-    const throttling = useRef(false)
-    const handleThrottleSearch = (elmt) => {
-        if (throttling.current) {
-            return
-        }
-        // if (!inputRef.current.value.trim()) {
-        //     setQueryState([])
-        //     setKeyState([])
-        // }
-        throttling.current = true
-        setTimeout(() => {
-            throttling.current = false
-            fetch(`https://restcountries.com/v3.1/name/${elmt.target.id}`)
-                .then(async response => {
-                    if (!response.ok) {
-                    console.log("Something went wrong!")
-                    } else {
-                        const data = await response.json()
-                        console.log(data)
-                        // setQueryState(data.query.pages)
-                        // setKeyState(Object.keys(data.query.pages))
-                }
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-        }, 800)
-        console.log(keyState)
-    }
-        
+    
     
     const handleClick = (elmt) => {
         if (!elmt.target.classList.contains('correct') && !elmt.target.classList.contains('incorrect') && gameStatus=='active') {
@@ -107,9 +74,6 @@ export const QuizProvider = (props) => {
             setCountryList(newList);
             setCurrentCountry(newList[Math.floor(Math.random() * newList.length)]);
             setCountryDict(newDict);
-        }
-        if (gameStatus === 'learn') {
-            handleThrottleSearch(elmt)
         }
     };
 

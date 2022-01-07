@@ -26,9 +26,14 @@ export const Attempts = (props) => {
             <p>
                 <cite>&mdash; { a.user } </cite>
                 <span className="float-right">
-                    <small>{ moment( a.startTime.toDate() ).fromNow() }</small>
+                    <small>{moment(a.startTime.toDate()).fromNow()}</small>
+                    {/* not sure why but sometimes records get added to the firebase with a start time of 0 rather than a servertimestamp. This can break this page, since .toDate() doesn't work on
+                    integers. So far I've just deleted the bad records to make it work again, but I'm not sure how to stop them from being added. It will usually only break the profile page
+                    when you hit view all, because it won't be included in either of the querys that limit it by ten and are sorted by starTime. It's also possible that it will affect the 
+                    High Scores page. */}
                 </span>
             </p>
         </li>
     )
 }
+
